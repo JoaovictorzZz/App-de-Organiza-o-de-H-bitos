@@ -6,6 +6,4 @@
   "scripts": {
     "start": "electron ."
   }
-  
 }
-  
