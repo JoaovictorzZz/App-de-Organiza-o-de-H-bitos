@@ -1,9 +1,16 @@
 {
-  "dependencies": {
-    "electron": "^36.4.0",
-    "node.js": "^0.0.1-security"
-  },
+  "name": "app-organizacao-habitos",
+  "version": "1.0.0",
+  "description": "Aplicativo de organização de hábitos",
+  "main": "main.js",
   "scripts": {
     "start": "electron ."
-  }
+  },
+  "dependencies": {
+    "electron": "^36.4.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "João",
+  "license": "MIT"
 }
