@@ -5,9 +5,22 @@
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplicativo</title>
+    <link rel="shortcut icon" href="/assets/calendar.png" type="image/x-icon">
 </head>
 <body>
-    <img src="../assets/calendar.png" alt="icone" width="100px" height="100px">
+    <!--Cabeçario -->
+    <header>
+      <nav>
+        <img src="origami.png" alt="imagem principal">
+      </nav>
+    </header>
+    <!--Conteudo do app -->
+    <main>
+        <h1>Hábitos </h1>
+        <input type="text" id="criarhabito" placeholder="Novo hábito"><br>
+        <button onclick="addHabito()">Adicionar</button>
+    </main>
+    
     <script src="/js/script.js"></script>
 </body>
 </html>
