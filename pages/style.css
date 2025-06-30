@@ -46,3 +46,14 @@ input{
     height: 30px;
     border-radius: 5px;
 }
+.habit-done{
+    background-color: aquamarine;
+    border-radius: 5px;
+    transition: backgrond-color 0.3s ease;
+}
+#habitList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  
+}
