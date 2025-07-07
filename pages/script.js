@@ -1,5 +1,5 @@
 //local storage teste
-  let habits = JSON.parse(localStorage.getItem("habits")) || [];
+let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
 function renderHabits() {
   const list = document.getElementById("habitList");
@@ -7,7 +7,12 @@ function renderHabits() {
 
   habits.forEach((habit, index) => {
     const li = document.createElement("li");
-    li.className = habit.done ? "habit-done" : "";
+    li.className = "habit"; // classe base com transição
+
+    if (habit.done) {
+      li.classList.add("habit-done"); // aplica fundo e animação se feito
+    }
+
     li.innerHTML = `
     <span>${habit.name}</span>
     <button onclick="toggleHabit(${index})">
