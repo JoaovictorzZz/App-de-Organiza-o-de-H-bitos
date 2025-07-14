@@ -1,6 +1,7 @@
-//local storage teste
+//local storage 
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
+// renderizando os novos habitos
 function renderHabits() {
   const list = document.getElementById("habitList");
   list.innerHTML = "";
@@ -14,17 +15,19 @@ function renderHabits() {
     }
 
     li.innerHTML = `
+    <button class="editHabito"  onclick="editHabit(${index})">✏️</button>
     <span>${habit.name}</span>
-    <button onclick="toggleHabit(${index})">
-    ${habit.done ? "Desfazer" : "Feito"}
+    <button class="addHabito" onclick="toggleHabit(${index})">
+    ${habit.done ? "X" : "&#10004"}
     </button>
     <button onclick="deleteHabit(${index})">🗑</button>
 `;
-
+   
     list.appendChild(li);
   });
 }
 
+//Le o input , se nao estiver nada retorna false ,atualiza o local storage e altualiza assim a interface
 function addHabit() {
   const input = document.getElementById("habitInput");
   if (input.value.trim() === "") return;
@@ -46,6 +49,7 @@ function deleteHabit(index) {
   localStorage.setItem("habits", JSON.stringify(habits));
   renderHabits();
 }
+//
 
 // Renderiza ao carregar a página
 renderHabits();

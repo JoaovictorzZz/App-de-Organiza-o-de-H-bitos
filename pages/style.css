@@ -56,6 +56,32 @@ button{
     text-align: center;
 }
 
+@keyframes bounceGlow {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    box-shadow: 0 0 0px rgba(0, 255, 170, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.00) translateY(-5px);
+    box-shadow: 0 0 5px rgba(0, 255, 170, 0.3);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 5px rgba(0, 255, 170, 0.3);
+  }
+}
+
+.habit {
+  animation: bounceGlow 0.6s ease-in-out;
+}
+
+
+
+#habitList{
+  animation: bounceGlow 0.6s ease-in-out;
+}
 
 #habitInput{
     text-align: center;
@@ -80,6 +106,9 @@ span{
      font-size: 20px;
      text-transform: uppercase;
 
+}
+.editHabito  {
+    width: 40px;
 }
 #habitList {
   list-style-type: none;
