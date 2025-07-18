@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicativo</title>
-    <link rel="shortcut icon" href="/assets/calendar.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplicativo de Hábitos</title>
+  <link rel="shortcut icon" href="/assets/calendar.png" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-   
-    <!--Cabeçario -->
-    <header>
-      <nav>
-        <img src="origami.png" alt="imagem principal">
-      </nav>
-    </header>
-    <!--Conteudo do app -->
-    <main>
-        <h1>Hábitos </h1>
-        <input type="text" id="habitInput" placeholder="Novo hábito">
-        <br>
-        <button class="principal" onclick="addHabit()">Adicionar</button>
-        <ul style="text-decoration: none;" id="habitList"></ul>
-    </main>
-   
-    <script src="script.js"></script>
+
+  <!-- Cabeçalho -->
+  <header>
+    <nav>
+      <img src="origami.png" alt="imagem principal" />
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <h1>Hábitos</h1>
+
+    <input type="text" id="habitInput" placeholder="Novo hábito" />
+    <br />
+    <button id="btnAdicionarHabito" class="principal" onclick="prepararCategoria()">Adicionar</button>
+
+    <article id="categoriaSelector" class="hidden"></article>
+  </main>
+
+  <!-- Seção onde os hábitos são exibidos -->
+  <section id="habitList"></section>
+
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>

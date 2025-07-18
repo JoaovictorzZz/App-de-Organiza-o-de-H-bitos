@@ -1,69 +1,88 @@
-//local storage 
+// Carregar hábitos do localStorage
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-// renderizando os novos habitos
+// Função para iniciar categoria
+function prepararCategoria() {
+  const nome = document.getElementById("habitInput").value.trim();
+  if (!nome) return;
+
+  window.habitTemp = { name: nome, categoria: null, diasFeitos: [] };
+
+  const btn = document.getElementById("btnAdicionarHabito");
+  btn.innerText = "Escolha sua categoria";
+  btn.classList.add("mudou");
+
+  document.getElementById("categoriaSelector").innerHTML = `
+    <p>Escolha a categoria:</p>
+    <button onclick="categorizarHabito('Saude')">❤️ Saúde</button>
+    <button onclick="categorizarHabito('Estudo')">📚 Estudo</button>
+    <button onclick="categorizarHabito('Produtividade')">📋 Produtividade</button>
+    <button onclick="categorizarHabito('Lazer')">🎮 Lazer</button>
+    <button onclick="categorizarHabito('Outro')">✨ Outro</button>
+  `;
+  document.getElementById("categoriaSelector").classList.remove("hidden");
+}
+
+// Categorizar hábito e salvar
+function categorizarHabito(categoria) {
+  const novoHabito = { ...window.habitTemp, categoria, diasFeitos: [] };
+  habits.push(novoHabito);
+  localStorage.setItem("habits", JSON.stringify(habits));
+  renderHabits();
+
+  const btn = document.getElementById("btnAdicionarHabito");
+  btn.innerText = "Adicionar";
+  btn.classList.remove("mudou");
+
+  document.getElementById("categoriaSelector").classList.add("hidden");
+  document.getElementById("habitInput").value = "";
+}
+
+// Renderiza hábitos no DOM
 function renderHabits() {
   const list = document.getElementById("habitList");
   list.innerHTML = "";
 
   habits.forEach((habit, index) => {
-    const li = document.createElement("li");
-    li.className = "habit"; // classe base com transição
+    const box = document.createElement("div");
+    box.className = `box box-${habit.categoria.toLowerCase()}`;
 
-    if (habit.done) {
-      li.classList.add("habit-done"); // aplica fundo e animação se feito
-    }
+    const diasSemana = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
+    const diasHTML = diasSemana.map(dia => {
+      const ativo = habit.diasFeitos.includes(dia) ? "ativo" : "";
+      return `<button class="${ativo}" onclick="marcarDia(${index}, '${dia}')">${dia}</button>`;
+    }).join("");
 
-    li.innerHTML = `
-    <button class="editHabito"  onclick="editHabit(${index})">✏️</button>
-    <span>${habit.name}</span>
-    <button class="addHabito" onclick="toggleHabit(${index})">
-    ${habit.done ? "X" : "&#10004"}
-    </button>
-    <button onclick="deleteHabit(${index})">🗑</button>
-`;
-   
-    list.appendChild(li);
+    box.innerHTML = `
+      <div><strong>${habit.name}</strong> (${habit.categoria})</div>
+      <div class="dias">${diasHTML}</div>
+      <div class="feedback">${gerarFeedback(habit)}</div>
+    `;
+
+    list.appendChild(box);
   });
 }
-function deleteHabit(index) {
-  const list = document.getElementById("habitList");
-  const li = list.children[index];
 
-  if (li) {
-    li.classList.add("habit"); // garante que a classe com animação exista
-    li.style.animation = "bounceGlow 0.6s ease-in-out";
-
-    setTimeout(() => {
-      habits.splice(index, 1);
-      localStorage.setItem("habits", JSON.stringify(habits));
-      renderHabits();
-    }, 600); // espera a animação terminar antes de excluir
+// Marcar dias da semana como concluído
+function marcarDia(index, dia) {
+  const habit = habits[index];
+  if (!habit.diasFeitos.includes(dia)) {
+    habit.diasFeitos.push(dia);
+  } else {
+    habit.diasFeitos = habit.diasFeitos.filter(d => d !== dia);
   }
-}
-//Le o input , se nao estiver nada retorna false ,atualiza o local storage e altualiza assim a interface
-function addHabit() {
-  const input = document.getElementById("habitInput");
-  if (input.value.trim() === "") return;
-
-  habits.push({ name: input.value, done: false });
-  localStorage.setItem("habits", JSON.stringify(habits));
-  input.value = "";
-  renderHabits();
-}
-
-function toggleHabit(index) {
-  habits[index].done = !habits[index].done;
   localStorage.setItem("habits", JSON.stringify(habits));
   renderHabits();
 }
 
-function deleteHabit(index) {
-  habits.splice(index, 1);
-  localStorage.setItem("habits", JSON.stringify(habits));
-  renderHabits();
+// Gerar frase de feedback
+function gerarFeedback(habit) {
+  const qtd = habit.diasFeitos.length;
+  if (qtd === 0) return "Vamos começar!";
+  if (qtd >= 5) return `🔥 Você está arrasando com ${habit.name}: ${qtd} dias!`;
+  if (qtd >= 3) return `👏 Você fez ${habit.name} por ${qtd} dias. Mandou bem!`;
+  return `🌱 Começo promissor com ${qtd} dia${qtd > 1 ? "s" : ""}. Continue!`;
 }
-//
 
-// Renderiza ao carregar a página
+// Inicializar
 renderHabits();
