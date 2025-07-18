@@ -26,7 +26,21 @@ function renderHabits() {
     list.appendChild(li);
   });
 }
+function deleteHabit(index) {
+  const list = document.getElementById("habitList");
+  const li = list.children[index];
 
+  if (li) {
+    li.classList.add("habit"); // garante que a classe com animação exista
+    li.style.animation = "bounceGlow 0.6s ease-in-out";
+
+    setTimeout(() => {
+      habits.splice(index, 1);
+      localStorage.setItem("habits", JSON.stringify(habits));
+      renderHabits();
+    }, 600); // espera a animação terminar antes de excluir
+  }
+}
 //Le o input , se nao estiver nada retorna false ,atualiza o local storage e altualiza assim a interface
 function addHabit() {
   const input = document.getElementById("habitInput");
