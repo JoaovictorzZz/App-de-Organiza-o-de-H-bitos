@@ -1,24 +1,31 @@
 // Carregar hábitos do localStorage
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
-
+//ativar button
+document.getElementById("habitInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // evita envio de formulário ou comportamento padrão
+    prepararCategoria(); // aciona a função do botão "Adicionar"
+  }
+});
 // Função para iniciar categoria
 function prepararCategoria() {
   const nome = document.getElementById("habitInput").value.trim();
   if (!nome) return;
 
   window.habitTemp = { name: nome, categoria: null, diasFeitos: [] };
-
+//mudança de texto
   const btn = document.getElementById("btnAdicionarHabito");
   btn.innerText = "Escolha sua categoria";
+  void btn.offsetWidth; // reinicia o ciclo da animação
   btn.classList.add("mudou");
 
   document.getElementById("categoriaSelector").innerHTML = `
-    <p>Escolha a categoria:</p>
-    <button onclick="categorizarHabito('Saude')">❤️ Saúde</button>
-    <button onclick="categorizarHabito('Estudo')">📚 Estudo</button>
-    <button onclick="categorizarHabito('Produtividade')">📋 Produtividade</button>
-    <button onclick="categorizarHabito('Lazer')">🎮 Lazer</button>
-    <button onclick="categorizarHabito('Outro')">✨ Outro</button>
+    
+    <button class="botao-categoria" onclick="categorizarHabito('Saude')">❤️ Saúde</button>
+    <button class="botao-categoria" onclick="categorizarHabito('Estudo')">📚 Estudo</button>
+    <button class="botao-categoria" onclick="categorizarHabito('Produtividade')">📋 Utilidade</button>
+    <button class="botao-categoria" onclick="categorizarHabito('Lazer')">🎮 Lazer</button>
+    <button class="botao-categoria" onclick="categorizarHabito('Outro')">✨ Outro</button>
   `;
   document.getElementById("categoriaSelector").classList.remove("hidden");
 }
@@ -32,6 +39,7 @@ function categorizarHabito(categoria) {
 
   const btn = document.getElementById("btnAdicionarHabito");
   btn.innerText = "Adicionar";
+  void btn.offsetWidth; // reinicia o ciclo da animaçã
   btn.classList.remove("mudou");
 
   document.getElementById("categoriaSelector").classList.add("hidden");
