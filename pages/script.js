@@ -32,65 +32,86 @@ function prepararCategoria() {
 
 // Categorizar hábito e salvar
 function categorizarHabito(categoria) {
-  const novoHabito = { ...window.habitTemp, categoria, diasFeitos: [] };
-  habits.push(novoHabito);
-  localStorage.setItem("habits", JSON.stringify(habits));
-  renderHabits();
+  const habit = window.habitTemp?.name || "";
+  if (!habit) {
+    alert("Hábito não definido. Digite um hábito antes de escolher a categoria.");
+    return;
+  }
 
+  // Exibe na tela o hábito e a categoria
+  const resultadoDiv = document.getElementById("resultado");
+  resultadoDiv.innerHTML = `
+    <div class="habitoFinal">
+      <strong>Hábito:</strong> ${habit}<br />
+      <strong>Categoria:</strong> ${categoria}
+    </div>
+  `;
+
+  // Opcional: esconder o seletor de categorias
+  document.getElementById("categoriaSelector").classList.add("hidden");
+
+  // Resetar o input
+  document.getElementById("habitInput").value = "";
+
+  // Resetar botão
   const btn = document.getElementById("btnAdicionarHabito");
   btn.innerText = "Adicionar";
-  void btn.offsetWidth; // reinicia o ciclo da animaçã
   btn.classList.remove("mudou");
 
-  document.getElementById("categoriaSelector").classList.add("hidden");
-  document.getElementById("habitInput").value = "";
+  // Limpa temporário
+  window.habitTemp = null;
 }
 
-// Renderiza hábitos no DOM
-function renderHabits() {
-  const list = document.getElementById("habitList");
-  list.innerHTML = "";
+//  Renderizar box com categoria + hábito + dias da semana
+ function renderHabits() {
+      const list = document.getElementById("habitList");
+      list.innerHTML = "";
 
-  habits.forEach((habit, index) => {
-    const box = document.createElement("div");
-    box.className = `box box-${habit.categoria.toLowerCase()}`;
+      const diasSemana = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
 
-    const diasSemana = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
-    const diasHTML = diasSemana.map(dia => {
-      const ativo = habit.diasFeitos.includes(dia) ? "ativo" : "";
-      return `<button class="${ativo}" onclick="marcarDia(${index}, '${dia}')">${dia}</button>`;
-    }).join("");
+      habits.forEach((habit, index) => {
+        const box = document.createElement("div");
 
-    box.innerHTML = `
-      <div><strong>${habit.name}</strong> (${habit.categoria})</div>
-      <div class="dias">${diasHTML}</div>
-      <div class="feedback">${gerarFeedback(habit)}</div>
-    `;
+        const diasHTML = diasSemana.map(dia => {
+          const ativo = habit.diasFeitos.includes(dia) ? "ativo" : "";
+          return `<button onclick="marcarDia(${index}, '${dia}')">${dia}</button>`;
+        }).join(" ");
 
-    list.appendChild(box);
-  });
-}
+        box.innerHTML = `
+          <div>
+            <strong>${habit.categoria} = ${habit.name}</strong>
+          </div>
+          <div>${diasHTML}</div>
+          <div>${gerarFeedback(habit)}</div>
+          <hr />
+        `;
 
-// Marcar dias da semana como concluído
-function marcarDia(index, dia) {
-  const habit = habits[index];
-  if (!habit.diasFeitos.includes(dia)) {
-    habit.diasFeitos.push(dia);
-  } else {
-    habit.diasFeitos = habit.diasFeitos.filter(d => d !== dia);
-  }
-  localStorage.setItem("habits", JSON.stringify(habits));
-  renderHabits();
-}
+        list.appendChild(box);
+      });
+    }
 
-// Gerar frase de feedback
-function gerarFeedback(habit) {
-  const qtd = habit.diasFeitos.length;
-  if (qtd === 0) return "Vamos começar!";
-  if (qtd >= 5) return `🔥 Você está arrasando com ${habit.name}: ${qtd} dias!`;
-  if (qtd >= 3) return `👏 Você fez ${habit.name} por ${qtd} dias. Mandou bem!`;
-  return `🌱 Começo promissor com ${qtd} dia${qtd > 1 ? "s" : ""}. Continue!`;
-}
+    function marcarDia(index, dia) {
+      const habit = habits[index];
+      if (!habit.diasFeitos.includes(dia)) {
+        habit.diasFeitos.push(dia);
+      } else {
+        habit.diasFeitos = habit.diasFeitos.filter(d => d !== dia);
+      }
 
-// Inicializar
-renderHabits();
+      localStorage.setItem("habits", JSON.stringify(habits));
+      renderHabits();
+    }
+
+    function gerarFeedback(habit) {
+      const qtd = habit.diasFeitos.length;
+      if (qtd >= 5) return `🔥 Você mandou muito bem com ${habit.name}! Feito em ${qtd} dias!`;
+      if (qtd >= 3) return `👏 ${habit.name} foi feito em ${qtd} dias. Está indo bem!`;
+      if (qtd >= 1) return `🌱 Você marcou ${qtd} dia${qtd > 1 ? "s" : ""} de ${habit.name}. Continue firme!`;
+      return `🚧 Ainda não marcou nenhum dia para ${habit.name}. Vamos começar!`;
+    }
+
+    renderHabits();
+
+
+ 
+
