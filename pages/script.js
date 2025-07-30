@@ -20,7 +20,8 @@ function prepararCategoria() {
   btn.classList.add("mudou");
 
   document.getElementById("categoriaSelector").innerHTML = `
-    
+    <br>
+    <br>
     <button class="botao-categoria" onclick="categorizarHabito('Saude')">❤️ Saúde</button>
     <button class="botao-categoria" onclick="categorizarHabito('Estudo')">📚 Estudo</button>
     <button class="botao-categoria" onclick="categorizarHabito('Produtividade')">📋 Utilidade</button>
@@ -62,53 +63,6 @@ function categorizarHabito(categoria) {
   window.habitTemp = null;
 }
 
-//  Renderizar box com categoria + hábito + dias da semana
- function renderHabits() {
-      const list = document.getElementById("habitList");
-      list.innerHTML = "";
-
-      const diasSemana = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
-
-      habits.forEach((habit, index) => {
-        const box = document.createElement("div");
-
-        const diasHTML = diasSemana.map(dia => {
-          const ativo = habit.diasFeitos.includes(dia) ? "ativo" : "";
-          return `<button onclick="marcarDia(${index}, '${dia}')">${dia}</button>`;
-        }).join(" ");
-
-        box.innerHTML = `
-          <div>
-            <strong>${habit.categoria} = ${habit.name}</strong>
-          </div>
-          <div>${diasHTML}</div>
-          <div>${gerarFeedback(habit)}</div>
-          <hr />
-        `;
-
-        list.appendChild(box);
-      });
-    }
-
-    function marcarDia(index, dia) {
-      const habit = habits[index];
-      if (!habit.diasFeitos.includes(dia)) {
-        habit.diasFeitos.push(dia);
-      } else {
-        habit.diasFeitos = habit.diasFeitos.filter(d => d !== dia);
-      }
-
-      localStorage.setItem("habits", JSON.stringify(habits));
-      renderHabits();
-    }
-
-    function gerarFeedback(habit) {
-      const qtd = habit.diasFeitos.length;
-      if (qtd >= 5) return `🔥 Você mandou muito bem com ${habit.name}! Feito em ${qtd} dias!`;
-      if (qtd >= 3) return `👏 ${habit.name} foi feito em ${qtd} dias. Está indo bem!`;
-      if (qtd >= 1) return `🌱 Você marcou ${qtd} dia${qtd > 1 ? "s" : ""} de ${habit.name}. Continue firme!`;
-      return `🚧 Ainda não marcou nenhum dia para ${habit.name}. Vamos começar!`;
-    }
 
     renderHabits();
 
