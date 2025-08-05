@@ -154,6 +154,14 @@ input{
 #resultado{
   margin: auto;
 }
+.efeito-contracao .botao-categoria {
+  transition: all 10s ease;
+}
+.efeito-contracao.escondendo .botao-categoria {
+  opacity: 0;
+  transform: scale(0.4);
+}
+
 /*fim*/
 
 

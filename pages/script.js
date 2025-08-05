@@ -33,37 +33,64 @@ function prepararCategoria() {
 
 // Categorizar hábito e salvar
 function categorizarHabito(categoria) {
-  const habit = window.habitTemp?.name || "";
-  if (!habit) {
+  const habitName = window.habitTemp?.name || "";
+  if (!habitName) {
     alert("Hábito não definido. Digite um hábito antes de escolher a categoria.");
+
+    // 🔧 Reset visual após alerta
+    document.getElementById("habitInput").value = "";
+    document.getElementById("habitInput").focus();
+
+    const btn = document.getElementById("btnAdicionarHabito");
+    btn.innerText = "Adicionar";
+    btn.classList.remove("mudou");
+
+    document.getElementById("categoriaSelector").classList.add("hidden");
+    window.habitTemp = null;
     return;
   }
 
-  // Exibe na tela o hábito e a categoria
+  // ✅ Cria objeto do novo hábito
+  const novoHabito = {
+    name: habitName,
+    categoria: categoria,
+    diasFeitos: []
+  };
+
+  // ✅ Adiciona ao array e salva no localStorage
+  habits.push(novoHabito);
+  localStorage.setItem("habits", JSON.stringify(habits));
+
+  // ✅ Exibe na tela sem apagar os anteriores
   const resultadoDiv = document.getElementById("resultado");
-  resultadoDiv.innerHTML = `
-    <div class="habitoFinal">
-      <strong>Hábito:</strong> ${habit}<br />
-      <strong>Categoria:</strong> ${categoria}
-    </div>
+
+  const bloco = document.createElement("div");
+  bloco.classList.add("habitoFinal");
+  bloco.innerHTML = `
+    <strong>Hábito:</strong> ${novoHabito.name}<br />
+    <strong>Categoria:</strong> ${novoHabito.categoria}
   `;
+  resultadoDiv.appendChild(bloco);
 
-  // Opcional: esconder o seletor de categorias
-  document.getElementById("categoriaSelector").classList.add("hidden");
-
-  // Resetar o input
+  // 🔄 Reset visual após salvar
   document.getElementById("habitInput").value = "";
-
-  // Resetar botão
   const btn = document.getElementById("btnAdicionarHabito");
   btn.innerText = "Adicionar";
   btn.classList.remove("mudou");
 
-  // Limpa temporário
+  const categoriaDiv = document.getElementById("categoriaSelector");
+  categoriaDiv.classList.add("efeito-contracao");
+  categoriaDiv.classList.add("escondendo"); // ✨ animação saindo
+
+  setTimeout(() => {
+    categoriaDiv.classList.add("hidden");
+    categoriaDiv.classList.remove("escondendo" , "efeito-contracao");
+    categoriaDiv.innerHTML = ""; // limpa após animação
+  }, 400);
+
+
   window.habitTemp = null;
 }
-
-
     renderHabits();
 
 
