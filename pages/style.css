@@ -115,7 +115,7 @@ input{
 }
 .sub{
   text-align: center;
-  margin-top: 100px;
+  margin-top: 140px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 40px;
   font-style: italic;
@@ -124,6 +124,7 @@ input{
   padding: 20px;
   width: auto;
   border-radius: 20px;
+  
   
 }
 
@@ -155,22 +156,108 @@ input{
   margin: auto;
 }
 .efeito-contracao .botao-categoria {
-  transition: all 10s ease;
+  transition: all 0.8s ease;
 }
 .efeito-contracao.escondendo .botao-categoria {
   opacity: 0;
   transform: scale(0.4);
 }
-
+.habitoFinal{
+  background-color: #04a1a7;
+  padding: 50px;
+  text-transform: uppercase;
+  
+  
+}
+strong{
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+hr{
+  color: rgb(0, 255, 115);
+  background-color: aquamarine;
+  height: 5px;
+  border-radius: 20px;
+  border-color: aquamarine;
+}
 /*fim*/
 
 
 /*sessão 2 do app*/
-.nova{
-  background-color: rgb(62, 156, 101);
-  width: 500px;
-  height: 300px;
-  margin: auto;
-  margin-top: 100px;
 
-}
+ .painel {
+      max-width: 800px;
+      margin: auto;
+      background-color: #baf3e0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 2rem;
+      margin-top: 140px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-style: italic;
+      color: rgb(20, 20, 20);
+       -webkit-text-stroke: 1px rgb(6, 78, 69); 
+       font-weight: normal;
+
+    }
+    .semana {
+      font-size: 1rem;
+      color: #7D7D7D;
+      margin-bottom: 2rem;
+    }
+    .metricas {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background-color: #23bba7;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      flex: 1;
+      margin: 0 0.5rem;
+    }
+    .grafico {
+      margin-bottom: 2rem;
+    }
+    .grafico-barra {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 100px;
+      margin-top: 1rem;
+    }
+    .dia {
+      text-align: center;
+      flex: 1;
+    }
+    .barra {
+      width: 80%;
+      margin: auto;
+      background-color: #4A90E2;
+      border-radius: 4px;
+    }
+    .insights {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.95rem;
+      color: #2E2E2E;
+      margin-bottom: 2rem;
+    }
+    .botao {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+

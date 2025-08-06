@@ -37,7 +37,7 @@ function categorizarHabito(categoria) {
   if (!habitName) {
     alert("Hábito não definido. Digite um hábito antes de escolher a categoria.");
 
-    // 🔧 Reset visual após alerta
+    //  Reset visual após alerta
     document.getElementById("habitInput").value = "";
     document.getElementById("habitInput").focus();
 
@@ -50,18 +50,18 @@ function categorizarHabito(categoria) {
     return;
   }
 
-  // ✅ Cria objeto do novo hábito
+  //  Cria objeto do novo hábito
   const novoHabito = {
     name: habitName,
     categoria: categoria,
     diasFeitos: []
   };
 
-  // ✅ Adiciona ao array e salva no localStorage
+  //  Adiciona ao array e salva no localStorage
   habits.push(novoHabito);
   localStorage.setItem("habits", JSON.stringify(habits));
 
-  // ✅ Exibe na tela sem apagar os anteriores
+  //  Exibe na tela sem apagar os anteriores
   const resultadoDiv = document.getElementById("resultado");
 
   const bloco = document.createElement("div");
@@ -69,6 +69,7 @@ function categorizarHabito(categoria) {
   bloco.innerHTML = `
     <strong>Hábito:</strong> ${novoHabito.name}<br />
     <strong>Categoria:</strong> ${novoHabito.categoria}
+    <hr>
   `;
   resultadoDiv.appendChild(bloco);
 
@@ -91,6 +92,8 @@ function categorizarHabito(categoria) {
 
   window.habitTemp = null;
 }
+
+//sessão 2 do app //
     renderHabits();
 
 
