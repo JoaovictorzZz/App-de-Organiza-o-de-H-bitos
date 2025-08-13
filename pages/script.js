@@ -1,62 +1,64 @@
-// Carregar hábitos do localStorage
-let habits = JSON.parse(localStorage.getItem("habits")) || [];
+// 🧠 Carregar hábitos do localStorage
+let habits = JSON.parse(localStorage.getItem("habitos")) || [];
 
-// Exibir hábitos ao carregar a página
+// ✅ Renderizar hábitos na tela
 function renderizarHabitos() {
   const resultadoDiv = document.getElementById("resultado");
   resultadoDiv.innerHTML = "";
 
-  habits.forEach((h, index) => {
+  habits.forEach((habito, index) => {
     const bloco = document.createElement("div");
     bloco.classList.add("habitoFinal");
 
-    // ✅ Conteúdo do hábito + botão de remover
     bloco.innerHTML = `
-      <div class="conteudo-habito">
-        <strong>Hábito:</strong> ${h.name}<br />
-        <strong>Categoria:</strong> ${h.categoria}
-      </div>
-      <button class="remover-individual" onclick="removerHabito(${index})">❌</button>
+      <div class="info-habito">
+      <strong>Hábito:</strong> <span>${habito.name}</span><br />
+      <br/>
+      <strong>Categoria:</strong> <span>${habito.categoria}</span>
+      <button class="btn-excluir">✖</button>
+      <div/>
     `;
+
+    bloco.querySelector(".btn-excluir").addEventListener("click", () => {
+      habits.splice(index, 1);
+      localStorage.setItem("habitos", JSON.stringify(habits));
+      renderizarHabitos();
+    });
 
     resultadoDiv.appendChild(bloco);
   });
 }
+
+// ✅ Ao carregar a página
 document.addEventListener("DOMContentLoaded", renderizarHabitos);
-//remover habitos
-function removerHabito(index) {
-  habits.splice(index, 1); // Remove do array
-  localStorage.setItem("habits", JSON.stringify(habits)); // Atualiza localStorage
-  renderizarHabitos(); // Re-renderiza a lista
-}
-//remover TODOS habitos
-document.getElementById("btnRemoverTodos").addEventListener("click", function() {
+
+// ✅ Remover todos os hábitos
+document.getElementById("btnRemoverTodos").addEventListener("click", () => {
   if (confirm("Tem certeza que deseja remover todos os hábitos?")) {
     habits = [];
-    localStorage.removeItem("habits");
+    localStorage.removeItem("habitos");
     renderizarHabitos();
   }
 });
-// Ativar pelo Enter
-document.getElementById("habitInput").addEventListener("keydown", function(event) {
+
+// ✅ Ativar pelo Enter
+document.getElementById("habitInput").addEventListener("keydown", event => {
   if (event.key === "Enter") {
     event.preventDefault();
     prepararCategoria();
   }
 });
 
-// Ativar quando sair do campo
-document.getElementById("habitInput").addEventListener("blur", function() {
-  const nome = this.value.trim();
-  if (nome) {
-    prepararCategoria();
-  }
+// ✅ Ativar ao sair do campo
+document.getElementById("habitInput").addEventListener("blur", () => {
+  const nome = document.getElementById("habitInput").value.trim();
+  if (nome) prepararCategoria();
 });
 
-// Ativar pelo botão "Adicionar"
+// ✅ Ativar pelo botão
 document.getElementById("btnAdicionarHabito").addEventListener("click", prepararCategoria);
 
-// Função para iniciar categoria
+// ✅ Iniciar seleção de categoria
 function prepararCategoria() {
   const nome = document.getElementById("habitInput").value.trim();
   if (!nome) return;
@@ -71,7 +73,7 @@ function prepararCategoria() {
   const categoriaDiv = document.getElementById("categoriaSelector");
   categoriaDiv.innerHTML = `
     <br><br>
-    <button class="botao-categoria" onclick="categorizarHabito('Saude')">❤️ Saúde</button>
+    <button class="botao-categoria" onclick="categorizarHabito('Saúde')">❤️ Saúde</button>
     <button class="botao-categoria" onclick="categorizarHabito('Estudo')">📚 Estudo</button>
     <button class="botao-categoria" onclick="categorizarHabito('Produtividade')">📋 Utilidade</button>
     <button class="botao-categoria" onclick="categorizarHabito('Lazer')">🎮 Lazer</button>
@@ -80,23 +82,14 @@ function prepararCategoria() {
   categoriaDiv.classList.remove("hidden");
 }
 
-// Categorizar hábito e salvar
+// ✅ Finalizar hábito e salvar
 function categorizarHabito(categoria) {
   const habitName = window.habitTemp?.name || "";
   if (!habitName) {
     alert("Hábito não definido. Digite um hábito antes de escolher a categoria.");
-
     document.getElementById("habitInput").value = "";
     document.getElementById("habitInput").focus();
-
-    const btn = document.getElementById("btnAdicionarHabito");
-    btn.innerText = "Adicionar";
-    btn.classList.remove("mudou");
-
-    const categoriaDiv = document.getElementById("categoriaSelector");
-    categoriaDiv.classList.add("hidden");
-    categoriaDiv.innerHTML = "";
-    window.habitTemp = null;
+    resetarInterface();
     return;
   }
 
@@ -106,31 +99,20 @@ function categorizarHabito(categoria) {
     diasFeitos: []
   };
 
-  // ✅ Adiciona ao array global
   habits.push(novoHabito);
+  localStorage.setItem("habitos", JSON.stringify(habits));
+  renderizarHabitos();
+  resetarInterface();
+}
 
-  // ✅ Salva no localStorage corretamente
-  localStorage.setItem("habits", JSON.stringify(habits));
-
-  // ✅ Exibe na tela
-  const resultadoDiv = document.getElementById("resultado");
-  const bloco = document.createElement("div");
-  bloco.classList.add("habitoFinal");
-  bloco.innerHTML = `
-    <strong>Hábito:</strong> ${novoHabito.name}<br />
-    <strong>Categoria:</strong> ${novoHabito.categoria}
-  `;
-  resultadoDiv.appendChild(bloco);
-
-  // Resetar input
+// ✅ Resetar interface após adicionar
+function resetarInterface() {
   document.getElementById("habitInput").value = "";
 
-  // Resetar botão
   const btn = document.getElementById("btnAdicionarHabito");
   btn.innerText = "Adicionar";
   btn.classList.remove("mudou");
 
-  // Animação de sumir os botões
   const categoriaDiv = document.getElementById("categoriaSelector");
   categoriaDiv.classList.add("escondendo");
 
@@ -139,7 +121,6 @@ function categorizarHabito(categoria) {
     categoriaDiv.classList.remove("escondendo");
     categoriaDiv.innerHTML = "";
 
-    // Animação no h2
     const titulo = document.querySelector("h2.sub");
     if (titulo) {
       titulo.classList.remove("h2-animado");

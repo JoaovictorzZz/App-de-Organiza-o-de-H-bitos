@@ -163,9 +163,12 @@ input{
   transform: scale(0.4);
 }
 .habitoFinal{
-  background-color: #04a1a7;
-  padding: 50px;
+  background-color: #ffffff;
+  padding: 10px;
+  display: flex;
+  max-width: 1000px;
   text-transform: uppercase;
+  margin: auto;
   
   
 }
@@ -184,7 +187,44 @@ hr{
 
 
 /*sessão 2 do app*/
+.info-habito{
+  text-align: center;
+  justify-content: space-evenly; /* separa conteúdo e botão */
+  align-items: center;
+  flex-wrap: wrap; /* quebra linha se necessário */
+  background-color: #2f8f7f;
+  padding: 10px;
+  margin: auto;
+  border-radius: 20px;
+  width: 300px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
 
+}
+ .btn-excluir{
+      background-color: #ffffff;
+      text-align: center;
+    }
+    span{
+     background: #c6fdff;
+     color: rgb(29, 29, 29);
+     padding: 4px;
+    }
+   .botao-remover-todos {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  font-weight: bold;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: auto;
+  max-width: 300px;
+}
  .painel {
       max-width: 800px;
       margin: auto;
@@ -200,7 +240,7 @@ hr{
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-style: italic;
       color: rgb(20, 20, 20);
-       -webkit-text-stroke: 1px rgb(6, 78, 69); 
+
        font-weight: normal;
 
     }
@@ -249,16 +289,6 @@ hr{
       color: #2E2E2E;
       margin-bottom: 2rem;
     }
-    .botao {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #4A90E2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-    }
+    
 
 
