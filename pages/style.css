@@ -118,6 +118,7 @@ input{
   margin-top: 140px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 40px;
+  position: static;
   font-style: italic;
   color: rgb(4, 107, 95);
   background-color: #d3ece9;

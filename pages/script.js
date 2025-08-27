@@ -31,13 +31,22 @@ function renderizarHabitos() {
 
 // ✅ Ao carregar a página
 document.addEventListener("DOMContentLoaded", renderizarHabitos);
+// resetar pagina 
+function resetarInterface(){
+   const input = document.getElementById("ihabitInput");
+   const bnt = document.getElementById("btnAdicionarHabito");
 
+   input.value = "";
+   input.disable = false;
+   input.style.display = "block";
+}
 // ✅ Remover todos os hábitos
 document.getElementById("btnRemoverTodos").addEventListener("click", () => {
   if (confirm("Tem certeza que deseja remover todos os hábitos?")) {
     habits = [];
     localStorage.removeItem("habitos");
     renderizarHabitos();
+    resetarInterface();
   }
 });
 
