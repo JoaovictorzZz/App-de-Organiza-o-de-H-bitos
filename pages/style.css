@@ -21,6 +21,7 @@ main>h1{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 40px;
     font-style: italic;
+    font-weight: 500;
     color: rgb(7, 182, 159);
     text-align: center;
 }
@@ -35,6 +36,7 @@ main{
     background-color: rgb(19, 54, 53);
     color: white;
     font-size: 16px;
+    font-weight: lighter;
     text-transform: uppercase;
     font-style: italic;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -59,6 +61,7 @@ button{
     background-color: rgb(241, 241, 241);
     color: rgb(7, 7, 7);
     font-size: 16px;
+    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 30px;
     border-style: none;
@@ -115,6 +118,7 @@ input{
 }
 .sub{
   text-align: center;
+  font-weight: 600;
   margin-top: 140px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 40px;
@@ -226,70 +230,85 @@ hr{
   margin: auto;
   max-width: 300px;
 }
- .painel {
-      max-width: 800px;
-      margin: auto;
-      background-color: #baf3e0;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 2rem;
-      margin-top: 140px;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-style: italic;
-      color: rgb(20, 20, 20);
+ 
+.titulo-carrossel{
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    font-weight: lighter;
+    margin-top: 100px;
+    color: rgb(2, 29, 24);
+    text-align: center;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.26);
+}
+/*carrossel*/
+.faixa {
+  position: relative;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 20px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
 
-       font-weight: normal;
+#corrida {
+  background-image: url('kipchoge.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  height: 350px;
+  width: 100%;
 
-    }
-    .semana {
-      font-size: 1rem;
-      color: #7D7D7D;
-      margin-bottom: 2rem;
-    }
-    .metricas {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-    }
-    .card {
-      background-color: #23bba7;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: center;
-      flex: 1;
-      margin: 0 0.5rem;
-    }
-    .grafico {
-      margin-bottom: 2rem;
-    }
-    .grafico-barra {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      height: 100px;
-      margin-top: 1rem;
-      
-    }
-    .dia {
-      text-align: center;
-      flex: 1;
-    }
-    .barra {
-      width: 80%;
-      margin: auto;
-     border-radius: 50%;
-      background-color: black;
-    }
-    .insights {
-      font-family: 'Roboto', sans-serif;
-      font-size: 0.95rem;
-      color: #2E2E2E;
-      margin-bottom: 2rem;
-    }
-    
+  
+}
 
+#natacao {
+  background-image: url('stretch1_phelps2.jpg');
+   background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  height: 350px;
+  width: 100%;
+}
 
+#bike {
+  background-image: url('pogacar.jpg');
+   background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  height: 350px;
+  width: 100%;
+}
+
+.texto-faixa {
+  color: white;
+  text-align: left;
+  background-image: linear-gradient(to right ,rgba(10, 10, 10, 0.747) 30% , rgba(0, 0, 0, 0) 50%); /* leve escurecimento atrás do texto */
+  padding: 10px;
+  max-width: 100%;
+}
+
+.texto-faixa h1 {
+  font-size: 2rem;
+  margin: 0;
+  padding: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 40px;
+  font-style: italic;
+}
+
+.texto-faixa p {
+  font-size: 1rem;
+  padding: 30px;
+  margin-top: 0.5rem;
+}
+.parte{
+  background-color: #2f8f7f;
+  width: 500px;
+  height: 500px;
+  margin-top: 400px;
+
+}
